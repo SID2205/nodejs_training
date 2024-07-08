@@ -84,7 +84,8 @@ class EmployeeService {
     name: string,
     email: string,
     address: any,
-    age: number
+    age: number,
+    department_id:any
   ) {
     const employee = await this.employeeRepository.findOneBy({ id });
 
@@ -97,6 +98,7 @@ class EmployeeService {
     employee.address.line1 = address.line1;
 
     employee.address.pincode = address.pincode;
+    employee.department=department_id;
     return this.employeeRepository.create(employee);
   }
 

@@ -1,8 +1,9 @@
-import { NextFunction } from "express";
+import { NextFunction, Response } from "express";
 import { JWT_SECRET } from "../utils/constants";
 import { RequestWithUser } from "../utils/requestWithUser";
 import jsonwebtoken from "jsonwebtoken";
 import { jwtPayload } from "../utils/jwtPayload";
+import { Console } from "console";
 const authorize = async (
   req: RequestWithUser,
   res: Response,
@@ -10,6 +11,7 @@ const authorize = async (
 ) => {
   try {
     const token = getTokenFromRequestHeader(req);
+   
     const payload = jsonwebtoken.verify(token, JWT_SECRET);
     req.name = (payload as jwtPayload).name;
     req.email = (payload as jwtPayload).email;
@@ -20,8 +22,8 @@ const authorize = async (
   }
 };
 const getTokenFromRequestHeader = (req: RequestWithUser) => {
-  const bearerToken = req.header("Authourization");
-  const token = bearerToken ? bearerToken.replace("Bearer", "") : "";
+  const bearerToken = req.header("Authorization");
+  const token = bearerToken ? bearerToken.replace("Bearer ", "") : "";
   return token;
 };
 

@@ -20,7 +20,7 @@ class DepartmentController {
     this.router = express.Router();
     this.router.get("/", this.getAllDepartment);
     this.router.get("/:id", this.getDepartmentById);
-    this.router.post("/",authorize ,this.createDepartment);
+    this.router.post("/",authorize,this.createDepartment);
     this.router.put("/:id",authorize, this.updateDepartment);
     this.router.delete("/:id", authorize,this.removeDepartment);
     
@@ -50,12 +50,14 @@ class DepartmentController {
       next(err);
     }
   };
+
+  
   public createDepartment = async (
     req: RequestWithUser,
     res: express.Response,
     next: express.NextFunction
   ) => {try{
-      const role=req.body.role;
+      const role=req.role;
       if(role!=Role.HR){
         throw new HttpException(
           403,

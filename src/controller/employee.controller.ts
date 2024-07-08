@@ -19,9 +19,9 @@ class EmployeeController {
     this.router.get("/", this.getAllEmployees);
     this.router.get("/:id", this.getEmployeeById);
     this.router.post("/", authorize,this.createEmployee);
-    this.router.delete("/:id",this.removeEmployee);
+    this.router.delete("/:id",authorize,this.removeEmployee);
     this.router.post("/login", this.loginEmployee);
-    this.router.put("/:id", this.updateEmployees);
+    this.router.put("/:id",authorize, this.updateEmployees);
   }
   public getAllEmployees = async (
     req: express.Request,
@@ -187,7 +187,8 @@ class EmployeeController {
         employeeDto.name,
         employeeDto.email,
         employeeDto.address,
-        employeeDto.age
+        employeeDto.age,
+        employeeDto.department_id
       );
       res.status(200).send(updateEmployee);
     } catch (err) {

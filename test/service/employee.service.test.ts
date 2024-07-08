@@ -1,7 +1,7 @@
 import EmployeeRepository from "../../src/repository/employee.repository";
 import Employee from "../../src/entity/employee.entity";
 import EmployeeService from "../../src/service/employee.service";
-import { when } from "jest-when";
+import {when} from "jest-when"
 
 describe("Employee Service", () => {
   let employeeRepository: EmployeeRepository;
@@ -17,7 +17,7 @@ describe("Employee Service", () => {
     employeeService = new EmployeeService(employeeRepository);
   });
 
-  it("should return allEmployee", async () => {
+  it("should return all Employee", async () => {
     const mock = jest.fn(employeeRepository.find).mockResolvedValue([]);
     employeeRepository.find = mock;
 

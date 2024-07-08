@@ -3,17 +3,18 @@ import dataSource from "../db/data-source.db";
 
 import { constants } from "buffer";
 import Department from "../entity/department.entity";
+import Employees from "../entity/employee.entity";
 
 class DepartmentRepository {
   //private dataSource: DataSource;
   constructor(private repository: Repository<Department>) {}
 
   async find() {
-    return this.repository.find();
+    return this.repository.find({relations:{employee:true}});
   }
 
   async findOneBy(filter: Partial<Department>) {
-    return this.repository.findOne({ where: filter, relations: ["id"] });
+    return this.repository.findOne({ where: filter, relations: ["employee"] });
   }
 
   async create(department: Department) {
