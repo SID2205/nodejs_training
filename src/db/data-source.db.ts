@@ -1,11 +1,9 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
-import Employees from "../entity/employee.entity";
 import dotenv from 'dotenv';
+
 dotenv.config();
-
-
 const dataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,

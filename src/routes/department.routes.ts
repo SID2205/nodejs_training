@@ -1,4 +1,3 @@
-
 import dataSource from "../db/data-source.db";
 import Department from "../entity/department.entity";
 import DepartmentController from "../controller/department.controller";

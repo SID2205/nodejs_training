@@ -1,8 +1,7 @@
-import { error } from "console";
 import EmployeeService from "../service/employee.service";
 import express from "express";
 import HttpException from "../exceptions/http.exceptions";
-import { plainToClass, plainToInstance } from "class-transformer";
+import { plainToInstance } from "class-transformer";
 import { CreateEmployeeDto } from "../dto/employee.dto";
 import { validate } from "class-validator";
 import { NextFunction } from "express-serve-static-core";
@@ -10,18 +9,17 @@ import authorize from "../middleware/authorization";
 import { Role } from "../utils/role.enum";
 import { RequestWithUser } from "../utils/requestWithUser";
 
+
 class EmployeeController {
-  
   public router: express.Router;
   constructor(private employeeService: EmployeeService) {
-
     this.router = express.Router();
     this.router.get("/", this.getAllEmployees);
     this.router.get("/:id", this.getEmployeeById);
-    this.router.post("/", authorize,this.createEmployee);
-    this.router.delete("/:id",authorize,this.removeEmployee);
+    this.router.post("/", authorize, this.createEmployee);
+    this.router.delete("/:id", authorize, this.removeEmployee);
     this.router.post("/login", this.loginEmployee);
-    this.router.put("/:id",authorize, this.updateEmployees);
+    this.router.put("/:id", authorize, this.updateEmployees);
   }
   public getAllEmployees = async (
     req: express.Request,
@@ -54,11 +52,11 @@ class EmployeeController {
     next: express.NextFunction
   ) => {
     try {
-      const { email, name, address, age, role, password } = req.body;
+      const { email, name, address, age, role, password, department } =
+        req.body;
       const emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (!email.match(emailFormat)) {
         throw new HttpException(400, "Invalid email format");
-        return;
       }
     } catch (error) {
       next(error);
@@ -75,9 +73,9 @@ class EmployeeController {
       }
 
       const employeeDto = plainToInstance(CreateEmployeeDto, req.body);
+
       const errors = await validate(employeeDto);
       if (errors.length) {
-
         throw new HttpException(400, JSON.stringify(errors));
       }
       const savedEmployee = await this.employeeService.createEmployee(
@@ -101,7 +99,7 @@ class EmployeeController {
   //   req: RequestWithUser,
   //   res: express.Response
   // ) => {
-  
+
   //   const employeeId = Number(req.params.id);
   //   const employee = await this.employeeService.deleteEmployee(employeeId);
   //   res.status(200).send(employee);
@@ -150,7 +148,7 @@ class EmployeeController {
   };
 
   public updateEmployees = async (
-    req:RequestWithUser,
+    req: RequestWithUser,
     res: express.Response,
     next: express.NextFunction
   ) => {
@@ -178,7 +176,6 @@ class EmployeeController {
           404,
           `No employees found with ID:${req.params.id}`
         );
-        
       }
 
       const id = Number(req.params.id);

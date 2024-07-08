@@ -1,10 +1,6 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
   OneToOne,
   ManyToOne
 } from "typeorm";

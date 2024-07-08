@@ -1,10 +1,9 @@
-import { DataSource, Repository } from "typeorm";
-import dataSource from "../db/data-source.db";
+import {Repository } from "typeorm";
+
 import Employees from "../entity/employee.entity";
-import { constants } from "buffer";
 
 class EmployeeRepository {
-  //private dataSource: DataSource;
+  
   constructor(private repository: Repository<Employees>) {}
 
   async find() {

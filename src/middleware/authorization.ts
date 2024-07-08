@@ -3,7 +3,7 @@ import { JWT_SECRET } from "../utils/constants";
 import { RequestWithUser } from "../utils/requestWithUser";
 import jsonwebtoken from "jsonwebtoken";
 import { jwtPayload } from "../utils/jwtPayload";
-import { Console } from "console";
+
 const authorize = async (
   req: RequestWithUser,
   res: Response,

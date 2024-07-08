@@ -1,13 +1,11 @@
 import {
-  Column,
   CreateDateColumn,
   DeleteDateColumn,
-  Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 
-import { Role } from "../utils/role.enum";
+
 
 class AbstractEntity {
   @PrimaryGeneratedColumn()

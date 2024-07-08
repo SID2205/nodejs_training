@@ -1,12 +1,6 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
-  PrimaryColumn,
-  UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
   OneToMany,
 } from "typeorm";
 import AbstractEntity from "./abstract-entity";

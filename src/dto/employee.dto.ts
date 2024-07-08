@@ -4,16 +4,13 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
-  Validate,
   ValidateNested,
-  isEnum,
-  isNumber,
-} from "class-validator";
+ } from "class-validator";
 import { CreateAddressDto } from "./address.dto";
 import { Type } from "class-transformer";
 import "reflect-metadata";
 import { Role } from "../utils/role.enum";
-import { CreateDepartmentDto } from "./department.dto";
+
 
 export class CreateEmployeeDto {
   @IsNotEmpty()

@@ -1,4 +1,3 @@
-import { error } from "console";
 import Address from "../entity/address.entity";
 import Employees from "../entity/employee.entity";
 import EmployeeRepository from "../repository/employee.repository";
@@ -6,15 +5,14 @@ import { Role } from "../utils/role.enum";
 import HttpException from "../exceptions/http.exceptions";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
-import { tokenToString } from "typescript";
 import { jwtPayload } from "../utils/jwtPayload";
 import { JWT_SECRET, JWT_VALIDITY } from "../utils/constants";
-import Department from "../entity/department.entity";
+
 
 class EmployeeService {
-  //private employeeRepository: EmployeeRepository;
+  
   constructor(private employeeRepository: EmployeeRepository) {}
-  //this.employeeRepository=new EmployeeRepository();
+
 
   async getAllEmployee() {
     return this.employeeRepository.find();

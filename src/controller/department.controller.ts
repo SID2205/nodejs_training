@@ -1,11 +1,7 @@
-import { error } from "console";
-
 import express from "express";
 import HttpException from "../exceptions/http.exceptions";
-import { plainToClass, plainToInstance } from "class-transformer";
-
+import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { NextFunction } from "express-serve-static-core";
 import authorize from "../middleware/authorization";
 import { Role } from "../utils/role.enum";
 import { CreateDepartmentDto } from "../dto/department.dto";
@@ -51,7 +47,7 @@ class DepartmentController {
     }
   };
 
-  
+
   public createDepartment = async (
     req: RequestWithUser,
     res: express.Response,
