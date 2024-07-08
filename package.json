@@ -7,10 +7,10 @@
     "start_server": "node dist/src/app1.js",
     "name": "echo sid",
     "build": "rm -rf dist/ && tsc",
-    "build_run": "npm run build && node dist/src/app1.js",
+    "build_run": "npm run build && node dist/app1.js",
     "migration:create": "npm run build && npx typeorm migration:create",
     "migration:generate": "npm run build && npx typeorm migration:generate -d dist/src/db/data-source.db.js",
-    "migration:run": "npm run build && npx typeorm migration:run -d dist/src/db/data-source.db.js",
+    "migration:run": "npm run build && npx typeorm migration:run -d dist/db/data-source.db.js",
     "migration:revert": "npm run build && npx typeorm migration:revert -d dist/db/data-source.db.js",
     "test_j": "jest",
     "test-coverage": "jest --coverage"

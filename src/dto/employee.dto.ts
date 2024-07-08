@@ -7,13 +7,13 @@ import {
   Validate,
   ValidateNested,
   isEnum,
-  isNotEmpty,
-  isString,
+  isNumber,
 } from "class-validator";
 import { CreateAddressDto } from "./address.dto";
 import { Type } from "class-transformer";
 import "reflect-metadata";
 import { Role } from "../utils/role.enum";
+import { CreateDepartmentDto } from "./department.dto";
 
 export class CreateEmployeeDto {
   @IsNotEmpty()
@@ -29,7 +29,6 @@ export class CreateEmployeeDto {
   @IsNumber()
   age: number;
 
- 
   @IsNotEmpty()
   @IsString()
   password: string;
@@ -42,6 +41,7 @@ export class CreateEmployeeDto {
   @ValidateNested({ each: true })
   @Type(() => CreateAddressDto)
   address: CreateAddressDto;
-
   
+  @IsNumber()
+  department_id: number;
 }

@@ -7,19 +7,21 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import AbstractEntity from "./abstract-entity";
 import Employees from "./employee.entity";
 
 @Entity()
-class Address extends AbstractEntity {
+class Department extends AbstractEntity {
+  
   @Column()
-  line1: string;
-  @Column()
-  pincode: string;
-  @OneToOne(() => Employees, (employee) => employee.address)
-  @JoinColumn()
-  employee: Employees;
+  department_name: string;
+
+  @OneToMany(() => Employees, (employee) => employee.department)
+  employee: Employees[];
+
+
 }
 
-export default Address;
+export default Department;

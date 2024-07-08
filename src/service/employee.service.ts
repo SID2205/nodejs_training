@@ -9,12 +9,13 @@ import jsonwebtoken from "jsonwebtoken";
 import { tokenToString } from "typescript";
 import { jwtPayload } from "../utils/jwtPayload";
 import { JWT_SECRET, JWT_VALIDITY } from "../utils/constants";
+import Department from "../entity/department.entity";
 
 class EmployeeService {
   //private employeeRepository: EmployeeRepository;
-  constructor(private employeeRepository: EmployeeRepository) {
-    //this.employeeRepository=new EmployeeRepository();
-  }
+  constructor(private employeeRepository: EmployeeRepository) {}
+  //this.employeeRepository=new EmployeeRepository();
+
   async getAllEmployee() {
     return this.employeeRepository.find();
   }
@@ -55,13 +56,15 @@ class EmployeeService {
     address: any,
     age: number,
     role: Role,
-    password: string
+    password: string,
+    department: any
   ) {
     const newEmployee = new Employees();
     newEmployee.name = name;
     newEmployee.email = email;
     newEmployee.address = address;
     newEmployee.age = age;
+    newEmployee.department=department;
 
     newEmployee.password = await bcrypt.hash(password, 10);
     newEmployee.role = role;
@@ -71,12 +74,45 @@ class EmployeeService {
     newAddress.pincode = address.pincode;
     newEmployee.address = newAddress;
 
-    return this.employeeRepository.create(newEmployee);
+    const newEmp = await this.employeeRepository.create(newEmployee);
+    console.log('newEmp', newEmp);
+    return newEmp;
+  }
+
+  async updateEmployee(
+    id: number,
+    name: string,
+    email: string,
+    address: any,
+    age: number
+  ) {
+    const employee = await this.employeeRepository.findOneBy({ id });
+
+    employee.name = name;
+
+    employee.email = email;
+
+    employee.age = age;
+
+    employee.address.line1 = address.line1;
+
+    employee.address.pincode = address.pincode;
+    return this.employeeRepository.create(employee);
   }
 
   async deleteEmployee(id: number) {
     return this.employeeRepository.delete(id);
   }
+
+  // async updateEmployee(id: number, details: Partial<Employees>) {
+  //   const employee = await this.employeeRepository.findOneBy({ id });
+  //   employee.name = details.name;
+  //   employee.email = details.email;
+  //   employee.age = details.age;
+  //   employee.address.line1 = details.address?.line1;
+  //   employee.address.pincode = details.address?.pincode;
+  //   return this.employeeRepository.create(employee);
+  // }
 
   removeEmployee = async (id: number): Promise<Employees> => {
     const employee = await this.employeeRepository.findOneBy({ id });
